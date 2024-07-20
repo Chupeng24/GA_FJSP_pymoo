@@ -25,6 +25,10 @@ from pymoo.algorithms.soo.nonconvex.ga import GA
 import pandas as pd
 from FJSP_operator import *
 from utils import *
+import matplotlib as mpl
+
+mpl.use('Agg')
+
 
 
 def setup_seed(seed):
@@ -33,7 +37,7 @@ def setup_seed(seed):
 
 
 def opt_run(n_j, n_m, opt_target, save):
-    test_data = FJSPDataset(n_j, n_m, configs.low, configs.high, 5, 200)
+    test_data = FJSPDataset(n_j, n_m, configs.low, configs.high, 1, 200)
     data_loader = iter(test_data)
 
     setup_seed(200)
@@ -67,22 +71,23 @@ def opt_run(n_j, n_m, opt_target, save):
                        save_history=True,
                        verbose=False)
 
-        # hist = res.history
-        # n_iter = []  # corresponding number of function evaluations\
-        # hist_F = []  # the objective space values in each generation
+        hist = res.history
+        n_iter = []  # corresponding number of function evaluations\
+        hist_F = []  # the objective space values in each generation
 
-        # for idx, algo in enumerate(hist):
-        #     n_iter.append(idx)
-        #     opt = algo.opt
-        #     hist_F.append(opt.get("F"))
-        #
-        # hist_res_list = [_F[0] for _F in hist_F]
-        # plt.figure(figsize=(7, 5))
-        # plt.plot(n_iter, hist_res_list, color='black', lw=0.7, label="best res of Pop")
-        # plt.title("Convergence")
-        # plt.xlabel("Function iteration")
-        # plt.ylabel(opt_target)
-        # plt.show()
+        for idx, algo in enumerate(hist):
+            n_iter.append(idx)
+            opt = algo.opt
+            hist_F.append(opt.get("F"))
+        
+        hist_res_list = [_F[0] for _F in hist_F]
+        plt.figure(figsize=(7, 5))
+        plt.plot(n_iter, hist_res_list, color='black', lw=0.7, label="best res of Pop")
+        plt.title("Convergence")
+        plt.xlabel("Function iteration")
+        plt.ylabel(opt_target)
+        plt.show()
+        plt.savefig('1.png')
 
         F = res.F[0]
         t2 = time.time()

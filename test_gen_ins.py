@@ -10,10 +10,10 @@ if __name__ == "__main__":
     # for n_j, n_m in zip(job_size, mch_size):
 
     opt_target = "makespan"
-    opt_run(10, 10, opt_target, True)
+    opt_run(6, 6, opt_target, True)
 
-    opt_target = "mean_tardiness"
-    opt_run(10, 10, opt_target, True)
+    # opt_target = "mean_tardiness"
+    # opt_run(10, 10, opt_target, True)
 
-    opt_target = "key_workload"
-    opt_run(10, 10, opt_target, True)
+    # opt_target = "key_workload"
+    # opt_run(10, 10, opt_target, True)
